@@ -1,0 +1,43 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Menu content is public read (it's a public website), admin-only write.
+    // NOTE: "admin-only write" here just means "no client writes" — this
+    // demo has no admin web app wired to Firestore yet, so menu/category
+    // edits happen via the Firebase console or admin-seed.html during dev.
+    match /categories/{catId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /menuItems/{itemId} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /coupons/{couponId} {
+      allow read: if true; // needed so checkout.html can look up a code
+      allow write: if false;
+    }
+
+    // A customer can read/write only their own profile doc.
+    match /customers/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+    }
+
+    // Orders: anyone can create one (guest checkout), but only the
+    // customer who placed it (if logged in) can read it back directly.
+    // track-order.html's "look up by order number" query works around
+    // this by matching on orderNumber, which is intentionally readable.
+    match /orders/{orderId} {
+      allow create: if true;
+      allow read: if true; // relaxed for order tracking by number/link; see README for tightening this for production
+      allow update, delete: if false; // status changes should come from a trusted admin app, not the public site
+    }
+
+    match /reservations/{resId} {
+      allow create: if true;
+      allow read: if request.auth != null && request.auth.uid == resource.data.customerId;
+      allow update, delete: if false;
+    }
+  }
+}

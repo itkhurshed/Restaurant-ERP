@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Seed Sample Data — ProServe (dev only)</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="p-4">
+<div class="container" style="max-width:640px;">
+  <h2>Seed Sample Menu Data</h2>
+  <p class="text-muted">
+    Run this once against a fresh Firebase project to populate a full multi-cuisine
+    sample menu (Western, Asian, and Arabic/Middle Eastern dishes), categories, and a
+    coupon code so <code>menu.html</code>, <code>checkout.html</code>, etc. have
+    something to show. Delete this file (or restrict it) before going live — it writes
+    to Firestore with no auth check, which is only safe for local development.
+  </p>
+  <button id="seedBtn" class="btn btn-dark">Seed Sample Data</button>
+  <pre id="seedLog" class="mt-3 bg-light p-3 border rounded" style="white-space:pre-wrap;"></pre>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/firebase-init.js"></script>
+<script>
+function log(msg) {
+  document.getElementById("seedLog").textContent += msg + "\n";
+}
+
+async function seed() {
+  log("Seeding categories...");
+  const categories = [
+    { id: "breakfast", name: "Breakfast", order: 1 },
+    { id: "main-dishes", name: "Main Dishes", order: 2 },
+    { id: "burgers", name: "Burgers", order: 3 },
+    { id: "pizza", name: "Pizza", order: 4 },
+    { id: "starters", name: "Starters", order: 5 },
+    { id: "asian", name: "Asian", order: 6 },
+    { id: "arabic", name: "Arabic & Middle Eastern", order: 7 },
+    { id: "salads-soups", name: "Salads & Soups", order: 8 },
+    { id: "desserts", name: "Desserts", order: 9 },
+    { id: "drinks", name: "Drinks", order: 10 }
+  ];
+  for (const c of categories) {
+    await db.collection("categories").doc(c.id).set({ name: c.name, order: c.order });
+  }
+  log("Categories done.");
+
+  log("Seeding menu items...");
+  const items = [
+    { name: "Chicken Burger", categoryId: "burgers", description: "Grilled chicken patty, lettuce, tomato, cheese", price: 3.25, available: true,
+      sizes: [{ name: "Regular", priceDelta: 0 }, { name: "Large", priceDelta: 0.75 }],
+      toppings: [{ name: "Extra Cheese", price: 0.35 }, { name: "Bacon", price: 0.5 }],
+      calories: 620, allergyInfo: "Contains gluten, dairy" },
+    { name: "Beef Burger", categoryId: "burgers", description: "Beef patty, cheddar, pickles, house sauce", price: 3.75, available: true,
+      sizes: [{ name: "Regular", priceDelta: 0 }, { name: "Large", priceDelta: 0.75 }],
+      toppings: [{ name: "Extra Cheese", price: 0.35 }], calories: 700, allergyInfo: "Contains gluten, dairy" },
+    { name: "Double Smash Burger", categoryId: "burgers", description: "Two beef patties, American cheese, smash sauce", price: 4.5, available: true, calories: 820 },
+    { name: "Margherita Pizza", categoryId: "pizza", description: "Tomato, mozzarella, basil", price: 4.5, available: true,
+      sizes: [{ name: "Medium", priceDelta: 0 }, { name: "Large", priceDelta: 1.5 }],
+      toppings: [{ name: "Extra Cheese", price: 0.5 }, { name: "Mushrooms", price: 0.4 }], calories: 800 },
+    { name: "Pepperoni Pizza", categoryId: "pizza", description: "Tomato, mozzarella, pepperoni", price: 5.0, available: true, calories: 900 },
+    { name: "Four Cheese Pizza", categoryId: "pizza", description: "Mozzarella, cheddar, parmesan, gorgonzola", price: 5.5, available: true, calories: 950 },
+    { name: "Grilled Chicken Plate", categoryId: "main-dishes", description: "Served with rice and salad", price: 4.0, available: true, calories: 650 },
+    { name: "French Fries", categoryId: "starters", description: "Crispy golden fries", price: 1.5, available: true, calories: 380 },
+    { name: "Chicken Wings (6pc)", categoryId: "starters", description: "Buffalo-glazed wings", price: 3.0, available: true, calories: 540 },
+    { name: "Mozzarella Sticks (6pc)", categoryId: "starters", description: "Breaded and fried, marinara dip", price: 2.75, available: true, calories: 480 },
+    { name: "Chicken Fried Rice", categoryId: "asian", description: "Wok-fried rice, egg, scallion, soy", price: 3.5, available: true, calories: 580 },
+    { name: "Beef Chow Mein", categoryId: "asian", description: "Stir-fried noodles, beef, vegetables", price: 4.2, available: true, calories: 640 },
+    { name: "Pad Thai", categoryId: "asian", description: "Rice noodles, tamarind sauce, peanuts, egg", price: 4.5, available: true, calories: 610 },
+    { name: "California Roll (8pc)", categoryId: "asian", description: "Crab, avocado, cucumber, sesame", price: 5.5, available: true, calories: 350 },
+    { name: "Chicken Teriyaki", categoryId: "asian", description: "Grilled chicken, teriyaki glaze, steamed rice", price: 4.8, available: true, calories: 590 },
+    { name: "Kung Pao Chicken", categoryId: "asian", description: "Diced chicken, peanuts, chili peppers, Sichuan sauce", price: 4.3, available: true, calories: 570 },
+    { name: "Thai Green Curry", categoryId: "asian", description: "Coconut curry, chicken, Thai basil, jasmine rice", price: 4.6, available: true, calories: 620 },
+    { name: "Vegetable Spring Rolls (4pc)", categoryId: "asian", description: "Crispy rolls, sweet chili dip", price: 2.8, available: true, calories: 320 },
+    { name: "Chicken Shawarma Plate", categoryId: "arabic", description: "Marinated chicken, garlic sauce, rice, salad", price: 3.8, available: true, calories: 700 },
+    { name: "Beef Shawarma Wrap", categoryId: "arabic", description: "Sliced beef, tahini, pickles, flatbread", price: 3.2, available: true, calories: 620 },
+    { name: "Mixed Grill Platter", categoryId: "arabic", description: "Kofta, shish tawook, lamb chop, rice, grilled vegetables", price: 6.5, available: true, calories: 980 },
+    { name: "Chicken Kabsa", categoryId: "arabic", description: "Spiced rice, roasted chicken, nuts, raisins", price: 4.9, available: true, calories: 760 },
+    { name: "Falafel Plate", categoryId: "arabic", description: "Crispy chickpea patties, tahini, salad, pita", price: 2.9, available: true, calories: 520 },
+    { name: "Hummus with Pita", categoryId: "arabic", description: "Creamy chickpea dip, olive oil, warm pita", price: 1.9, available: true, calories: 380 },
+    { name: "Mutabbal", categoryId: "arabic", description: "Smoky grilled eggplant dip, tahini, pomegranate", price: 1.9, available: true, calories: 220 },
+    { name: "Fattoush Salad", categoryId: "arabic", description: "Mixed greens, toasted pita, sumac dressing", price: 2.2, available: true, calories: 260 },
+    { name: "Manakish Zaatar", categoryId: "arabic", description: "Flatbread with zaatar and olive oil", price: 1.7, available: true, calories: 340 },
+    { name: "Kunafa", categoryId: "arabic", description: "Sweet cheese pastry, syrup, crushed pistachio", price: 2.8, available: true, calories: 520 },
+    { name: "Caesar Salad", categoryId: "salads-soups", description: "Romaine, parmesan, croutons, caesar dressing", price: 2.5, available: true, calories: 340 },
+    { name: "Greek Salad", categoryId: "salads-soups", description: "Tomato, cucumber, olives, feta", price: 2.4, available: true, calories: 300 },
+    { name: "Lentil Soup", categoryId: "salads-soups", description: "Classic red lentil soup", price: 1.8, available: true, calories: 210 },
+    { name: "Chocolate Lava Cake", categoryId: "desserts", description: "Warm cake, molten center, vanilla scoop", price: 2.25, available: true, calories: 450 },
+    { name: "Cheesecake Slice", categoryId: "desserts", description: "New York style, berry compote", price: 2.0, available: true, calories: 420 },
+    { name: "Baklava (3pc)", categoryId: "desserts", description: "Layered filo pastry, honey, crushed pistachio", price: 2.1, available: true, calories: 390 },
+    { name: "Fresh Orange Juice", categoryId: "drinks", description: "Freshly squeezed", price: 1.5, available: true, calories: 120 },
+    { name: "Arabic Coffee", categoryId: "drinks", description: "Cardamom-spiced, served hot", price: 1.2, available: true, calories: 5 },
+    { name: "Mint Lemonade", categoryId: "drinks", description: "Fresh mint, lemon, sparkling water", price: 1.6, available: true, calories: 90 }
+  ];
+  for (const i of items) {
+    await db.collection("menuItems").add(i);
+  }
+  log("Menu items done.");
+
+  log("Seeding a sample coupon (code: WELCOME10, 10% off)...");
+  await db.collection("coupons").add({ code: "WELCOME10", type: "PERCENT", value: 10, active: true });
+
+  log("\\nAll done! Go to menu.html to see the full multi-cuisine menu.");
+}
+
+document.getElementById("seedBtn").addEventListener("click", () => {
+  document.getElementById("seedBtn").disabled = true;
+  seed().catch(err => log("ERROR: " + err.message));
+});
+</script>
+</body>
+</html>

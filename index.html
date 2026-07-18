@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ProServe Restaurant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">ProServe</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navContent">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="reservation.html">Reservations</a></li>
+        <li class="nav-item"><a class="nav-link" href="track-order.html">Track Order</a></li>
+      </ul>
+      <ul class="navbar-nav align-items-lg-center">
+        <li class="nav-item">
+          <a class="nav-link position-relative" href="cart.html">
+            Cart <span id="cartBadge" class="badge bg-danger rounded-pill d-none">0</span>
+          </a>
+        </li>
+        <li class="nav-item" id="navLoggedOut">
+          <a class="nav-link" href="login.html">Log In</a>
+        </li>
+        <li class="nav-item dropdown d-none" id="navLoggedIn">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            <span id="navUserName">Account</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="customer-dashboard.html">My Dashboard</a></li>
+            <li><a class="dropdown-item" id="navLogoutBtn" href="#">Log Out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="home-hero">
+  <span class="blob blob-1"></span>
+  <span class="blob blob-2"></span>
+  <span class="blob blob-3"></span>
+  <div class="container home-hero-content">
+    <span class="hero-kicker">Fresh &middot; Fast &middot; Full of flavor</span>
+    <h1 class="hero-title">Great food,<br><span class="text-gradient">delivered your way.</span></h1>
+    <p class="hero-sub">Dine in, take away, or have it delivered to your door — order online in seconds.</p>
+    <div class="hero-actions">
+      <a href="menu.html" class="btn btn-hero-primary btn-pulse">
+        <i class="bi bi-egg-fried"></i> View Menu &amp; Order
+      </a>
+      <a href="reservation.html" class="btn btn-hero-outline">
+        <i class="bi bi-calendar-check"></i> Book a Table
+      </a>
+    </div>
+  </div>
+  <a href="#order-types" class="scroll-cue" aria-label="Scroll down">
+    <i class="bi bi-chevron-down"></i>
+  </a>
+</header>
+
+<!-- ============ STATS ============ -->
+<section class="stats-bar">
+  <div class="container">
+    <div class="row text-center g-4">
+      <div class="col-6 col-md-3">
+        <div class="stat-number" data-count="500">0</div>
+        <div class="stat-label">Dishes Served Daily</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-number" data-count="40">0</div>
+        <div class="stat-label">Menu Items</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-number" data-count="98" data-suffix="%">0</div>
+        <div class="stat-label">Happy Customers</div>
+      </div>
+      <div class="col-6 col-md-3">
+        <div class="stat-number" data-count="25" data-suffix=" min">0</div>
+        <div class="stat-label">Avg. Delivery Time</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ORDER TYPES ============ -->
+<section class="container py-5" id="order-types">
+  <div class="text-center mb-5 reveal">
+    <span class="section-kicker">How would you like it?</span>
+    <h2 class="section-title">However you're hungry, we've got you.</h2>
+  </div>
+  <div class="row g-4">
+    <div class="col-md-4 reveal" style="transition-delay:.05s">
+      <div class="order-type-card">
+        <div class="order-type-icon icon-warm"><i class="bi bi-shop"></i></div>
+        <h4>Dine-in</h4>
+        <p class="text-muted">Book your table online and skip the wait.</p>
+      </div>
+    </div>
+    <div class="col-md-4 reveal" style="transition-delay:.15s">
+      <div class="order-type-card">
+        <div class="order-type-icon icon-teal"><i class="bi bi-bag-check"></i></div>
+        <h4>Takeaway</h4>
+        <p class="text-muted">Order ahead and pick up when it's ready.</p>
+      </div>
+    </div>
+    <div class="col-md-4 reveal" style="transition-delay:.25s">
+      <div class="order-type-card">
+        <div class="order-type-icon icon-red"><i class="bi bi-bicycle"></i></div>
+        <h4>Delivery</h4>
+        <p class="text-muted">Fresh food brought straight to your door.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ POPULAR DISHES ============ -->
+<section class="section-tinted py-5">
+  <div class="container">
+    <div class="text-center mb-5 reveal">
+      <span class="section-kicker">Fan favorites</span>
+      <h2 class="section-title">Popular Right Now</h2>
+    </div>
+    <div class="row g-4" id="popularDishes">
+      <!-- filled by js/home.js, falls back to sample cards if Firestore has no data yet -->
+    </div>
+    <div class="text-center mt-4 reveal">
+      <a href="menu.html" class="btn btn-outline-dark btn-lg">See Full Menu</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY US ============ -->
+<section class="container py-5">
+  <div class="text-center mb-5 reveal">
+    <span class="section-kicker">Why ProServe</span>
+    <h2 class="section-title">Made for people who love good food.</h2>
+  </div>
+  <div class="row g-4">
+    <div class="col-md-3 col-6 reveal" style="transition-delay:.05s">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="bi bi-lightning-charge-fill"></i></div>
+        <h5>Lightning Fast</h5>
+        <p class="text-muted small">Orders fired to the kitchen the second you check out.</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-6 reveal" style="transition-delay:.15s">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="bi bi-patch-check-fill"></i></div>
+        <h5>Always Fresh</h5>
+        <p class="text-muted small">Made to order with quality ingredients, every time.</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-6 reveal" style="transition-delay:.25s">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="bi bi-gift-fill"></i></div>
+        <h5>Loyalty Rewards</h5>
+        <p class="text-muted small">Earn points on every order and unlock perks.</p>
+      </div>
+    </div>
+    <div class="col-md-3 col-6 reveal" style="transition-delay:.35s">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="bi bi-geo-alt-fill"></i></div>
+        <h5>Live Tracking</h5>
+        <p class="text-muted small">Follow your order from kitchen to doorstep.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIALS ============ -->
+<section class="section-dark py-5">
+  <div class="container">
+    <div class="text-center mb-4 reveal">
+      <span class="section-kicker section-kicker-light">Testimonials</span>
+      <h2 class="section-title text-white">What our guests say</h2>
+    </div>
+    <div id="testimonialCarousel" class="carousel slide reveal" data-bs-ride="carousel">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <div class="testimonial-card">
+            <p>&ldquo;Ordering online was so smooth, and the food showed up hot and exactly as I customized it.&rdquo;</p>
+            <strong>&mdash; Sara A.</strong>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="testimonial-card">
+            <p>&ldquo;Booked a table for six in under a minute. No calls, no waiting on hold. Loved it.&rdquo;</p>
+            <strong>&mdash; Mohammed K.</strong>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <div class="testimonial-card">
+            <p>&ldquo;The loyalty points actually add up fast — free dessert on my third order!&rdquo;</p>
+            <strong>&mdash; Layla H.</strong>
+          </div>
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </button>
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2"></button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA BANNER ============ -->
+<section class="cta-banner">
+  <span class="blob blob-1"></span>
+  <span class="blob blob-2"></span>
+  <div class="container text-center cta-banner-content reveal">
+    <h2>Hungry already?</h2>
+    <p>Your favorite dishes are a few taps away.</p>
+    <a href="menu.html" class="btn btn-hero-primary btn-pulse btn-lg">Order Now</a>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 ProServe Restaurant. All rights reserved. &middot;
+  <a href="https://wa.me/00000000000" target="_blank" rel="noopener">Contact us on WhatsApp</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/firebase-init.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>

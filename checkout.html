@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout — ProServe</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">ProServe</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navContent">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
+        <li class="nav-item"><a class="nav-link" href="reservation.html">Reservations</a></li>
+        <li class="nav-item"><a class="nav-link" href="track-order.html">Track Order</a></li>
+      </ul>
+      <ul class="navbar-nav align-items-lg-center">
+        <li class="nav-item">
+          <a class="nav-link position-relative" href="cart.html">
+            Cart <span id="cartBadge" class="badge bg-danger rounded-pill d-none">0</span>
+          </a>
+        </li>
+        <li class="nav-item" id="navLoggedOut">
+          <a class="nav-link" href="login.html">Log In</a>
+        </li>
+        <li class="nav-item dropdown d-none" id="navLoggedIn">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            <span id="navUserName">Account</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><a class="dropdown-item" href="customer-dashboard.html">My Dashboard</a></li>
+            <li><a class="dropdown-item" id="navLogoutBtn" href="#">Log Out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<div class="container py-4">
+  <h2 class="mb-3">Checkout</h2>
+  <div class="row g-4">
+    <div class="col-md-7">
+      <h5>Order Summary</h5>
+      <div id="checkoutItems"></div>
+    </div>
+    <div class="col-md-5">
+      <div class="card p-3">
+        <label class="form-label">Order Type</label>
+        <select id="orderType" class="form-select mb-3">
+          <option value="DINE_IN">Dine-in</option>
+          <option value="TAKEAWAY">Takeaway</option>
+          <option value="PICKUP">Pickup</option>
+          <option value="DELIVERY">Delivery</option>
+        </select>
+
+        <div id="deliveryFields" class="d-none mb-3">
+          <label class="form-label">Delivery Address</label>
+          <textarea id="deliveryAddress" class="form-control" rows="2"></textarea>
+        </div>
+
+        <label class="form-label">Your Name</label>
+        <input type="text" id="customerName" class="form-control mb-3">
+
+        <label class="form-label">Phone</label>
+        <input type="text" id="customerPhone" class="form-control mb-3">
+
+        <label class="form-label">Coupon Code</label>
+        <div class="input-group mb-1">
+          <input type="text" id="couponCode" class="form-control">
+          <button class="btn btn-outline-dark" id="applyCouponBtn" type="button">Apply</button>
+        </div>
+        <div id="couponMsg" class="small mb-3"></div>
+
+        <label class="form-label">Payment Method</label>
+        <select id="paymentMethod" class="form-select mb-3">
+          <option value="CASH">Cash</option>
+          <option value="KNET">KNET</option>
+          <option value="VISA">Visa</option>
+          <option value="MASTERCARD">Mastercard</option>
+          <option value="APPLE_PAY">Apple Pay</option>
+          <option value="GOOGLE_PAY">Google Pay</option>
+        </select>
+        <p class="small text-muted">Card/KNET/wallet payments need a real payment gateway wired in (see README) &mdash; this demo records the chosen method and marks the order UNPAID until that's connected.</p>
+
+        <div id="checkoutTotals" class="mb-3"></div>
+        <div id="orderMsg"></div>
+        <button id="placeOrderBtn" class="btn btn-dark btn-lg">Place Order</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<footer>
+  &copy; 2026 ProServe Restaurant. All rights reserved. &middot;
+  <a href="https://wa.me/00000000000" target="_blank" rel="noopener">Contact us on WhatsApp</a>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+<script src="js/firebase-config.js"></script>
+<script src="js/firebase-init.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/auth.js"></script>
+<script src="js/checkout.js"></script>
+</body>
+</html>
